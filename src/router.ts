@@ -41,6 +41,10 @@ const routes: RouteConfig[] = [
         component: () => asyncComponent('configuration/GamepadConfig'),
       },
       {
+        path: 'audio',
+        component: () => asyncComponent('configuration/AudioConfig'),
+      },
+      {
         path: 'victim',
         component: () => asyncComponent('configuration/VictimConfig'),
       },

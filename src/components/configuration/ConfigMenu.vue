@@ -18,6 +18,11 @@
             >Gamepad</router-link
           >
         </li>
+        <li>
+          <router-link to="/configuration/audio" active-class="is-active"
+            >Audio</router-link
+          >
+        </li>
       </b-menu-list>
       <b-menu-label>Tabs</b-menu-label>
       <b-menu-list>
