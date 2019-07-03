@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex, { Store, Plugin } from 'vuex'
 import {
+  AudioModule,
   CameraModule,
   TeleopModule,
   RosModule,
@@ -38,6 +39,7 @@ const store = new Store<RootState>({
 
 export default store
 
+export const audioModule = AudioModule.CreateProxy(store, AudioModule)
 export const cameraModule = CameraModule.CreateProxy(store, CameraModule)
 export const teleopModule = TeleopModule.CreateProxy(store, TeleopModule)
 export const victimModule = VictimModule.CreateProxy(store, VictimModule)
