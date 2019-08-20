@@ -14,35 +14,35 @@ const routes: RouteConfig[] = [
   {
     path: '/teleop',
     name: 'teleop',
-    component: () => asyncComponent('tabs/Teleop'),
+    component: () => asyncComponent('pages/teleop/Teleop.tsx'),
   },
   {
     path: '/victim',
-    component: () => asyncComponent('tabs/Victim'),
+    component: () => asyncComponent('tabs/Victim.vue'),
   },
   {
     path: '/configuration',
-    component: () => asyncComponent('configuration/GlobalConfig'),
+    component: () => asyncComponent('pages/config/GlobalConfig.vue'),
     children: <RouteConfig[]>[
       {
         path: 'ros',
-        component: () => asyncComponent('configuration/RosConfig'),
+        component: () => asyncComponent('pages/config/RosConfig.vue'),
       },
       {
         path: 'teleop',
-        component: () => asyncComponent('configuration/TeleopConfig'),
+        component: () => asyncComponent('pages/config/TeleopConfig.vue'),
       },
       {
         path: 'camera',
-        component: () => asyncComponent('configuration/camera/CameraConfig'),
+        component: () => asyncComponent('pages/config/camera/CameraConfig.vue'),
       },
       {
         path: 'gamepad',
-        component: () => asyncComponent('configuration/GamepadConfig'),
+        component: () => asyncComponent('pages/config/GamepadConfig'),
       },
       {
         path: 'victim',
-        component: () => asyncComponent('configuration/VictimConfig'),
+        component: () => asyncComponent('pages/config/VictimConfig'),
       },
     ],
   },
@@ -63,7 +63,7 @@ function asyncComponent(componentPath: string) {
   const asyncComponentFactory: AsyncComponentFactory = () => ({
     component: import(
       /* webpackChunkName: "[request]" */
-      `@/components/${componentPath}.vue`
+      `@/components/${componentPath}`
     ) as any,
     loading: LoadingComponent,
     error: ErrorComponent,

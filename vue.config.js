@@ -60,4 +60,5 @@ module.exports = {
   configureWebpack: {
     plugins: [new IgnoreNotFoundExportPlugin()],
   },
+  runtimeCompiler: true,
 }

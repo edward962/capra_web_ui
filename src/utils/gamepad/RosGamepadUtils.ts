@@ -1,7 +1,7 @@
 import { Twist, Vector3 } from '@/utils/math/types'
 import CustomGamepad from './CustomGamepad'
-import { GamepadBtn, Stick } from './mappings/types'
 import { TopicOptions } from '@club_capra/roslib-ts-client'
+import { Stick, GamepadBtn } from '@/utils/gamepad/@types'
 
 export const cmdVelTopic: TopicOptions = {
   name: '/cmd_vel',
@@ -13,12 +13,16 @@ export const joyTopic: TopicOptions = {
   messageType: 'sensor_msgs/Joy',
 }
 
+export const spaceMouseTopic: TopicOptions = {
+  name: '/spacenav/twist',
+  messageType: 'geometry_msgs/Twist',
+}
+
 let joySeqId = 0
 
 export const mapGamepadToJoy = (gamepad: Gamepad) => {
   const d = new Date()
   const seconds = Math.round(d.getTime() / 1000)
-  const cgamepad = new CustomGamepad(gamepad)
 
   const axes = gamepad.axes.map(x => (x < 0.09 && x > -0.09 ? 0.0 : x))
 
@@ -66,6 +70,22 @@ export const mapGamepadToTwist = (gamepad: CustomGamepad): Twist => {
     x: 0,
     y: 0,
     z: x * rt,
+  }
+
+  return new Twist(linear, angular)
+}
+
+export const mapSpaceMouseToTwist = (spacemouse: Gamepad): Twist => {
+  const linear = {
+    x: spacemouse.axes[0],
+    y: spacemouse.axes[1],
+    z: spacemouse.axes[2],
+  }
+
+  const angular = {
+    x: spacemouse.axes[3],
+    y: spacemouse.axes[4],
+    z: spacemouse.axes[5],
   }
 
   return new Twist(linear, angular)

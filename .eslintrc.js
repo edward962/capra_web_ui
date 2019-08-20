@@ -36,6 +36,7 @@ module.exports = {
       },
     ],
     'linebreak-style': ['error', 'windows'],
+    '@typescript-eslint/no-explicit-any': 0,
   },
 
   parserOptions: {

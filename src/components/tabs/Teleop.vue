@@ -14,9 +14,10 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import { Dashboard, Camera, Map2D } from '@/components'
+import { Camera, Map2D } from '@/components'
 import Viewer3D from '@/components/ros/Viewer3D.vue'
 import { cameraModule, teleopModule } from '@/store'
+import Dashboard from '../pages/teleop/dashboard/Dashboard'
 
 @Component({ components: { Camera, Dashboard, Map2D } })
 export default class Teleop extends Vue {
@@ -36,6 +37,7 @@ export default class Teleop extends Vue {
 
 <style lang="scss">
 .teleop {
+  height: 100%;
   display: grid;
   align-content: stretch;
   grid-template-rows: 70% 30%;
