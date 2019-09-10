@@ -6,16 +6,18 @@ import {
 import { Map2D } from '@/components'
 import Camera from '@/components/ros/Camera'
 import { cameraModule, teleopModule } from '@/store'
-import { createComponent, state } from 'vue-function-api'
 import Dashboard from '@/components/pages/teleop/dashboard/Dashboard'
+import { createComponent, reactive } from '@vue/composition-api'
 
 const Teleop = createComponent({
   setup() {
-    const bottomCamera = state(
+    const bottomCamera = reactive(
       cameraModule.getCamera(teleopModule.bottomCamera)
     )
-    const leftCamera = state(cameraModule.getCamera(teleopModule.leftCamera))
-    const rightCamera = state(cameraModule.getCamera(teleopModule.rightCamera))
+    const leftCamera = reactive(cameraModule.getCamera(teleopModule.leftCamera))
+    const rightCamera = reactive(
+      cameraModule.getCamera(teleopModule.rightCamera)
+    )
 
     return (
       <TeleopGrid>

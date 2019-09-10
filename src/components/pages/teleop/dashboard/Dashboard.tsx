@@ -2,13 +2,6 @@ import _ from 'lodash-es'
 
 import { dashboardModule } from '@/store'
 import { rosClient } from '@/utils/ros/rosClient'
-import {
-  computed,
-  onMounted,
-  state,
-  onBeforeDestroy,
-  createComponent,
-} from 'vue-function-api'
 
 import {
   DashboardGrid,
@@ -16,19 +9,17 @@ import {
   SpeedProgressArea,
   DirectionProgressArea,
 } from '@/components/pages/teleop/dashboard/Dashboard.style'
+import {
+  createComponent,
+  computed,
+  onMounted,
+  reactive,
+  onBeforeUnmount,
+} from '@vue/composition-api'
 
 const Dashboard = createComponent({
   // name: 'Dashboard',
   setup() {
-    const data = state({
-      speed: 0,
-      forward: 0,
-      backward: 0,
-      direction: 0,
-      right: 0,
-      left: 0,
-    })
-
     const orientation = computed(() => {
       const data = dashboardModule.orientation.data
       rosClient.subscribe(
@@ -53,7 +44,7 @@ const Dashboard = createComponent({
       )
     })
 
-    onBeforeDestroy(() => {
+    onBeforeUnmount(() => {
       rosClient.unsubscribe(dashboardModule.orientation.topic)
       rosClient.unsubscribe(dashboardModule.temperature.topic)
     })

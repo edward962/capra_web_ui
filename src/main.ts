@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import vueBulmaComponents from 'vue-bulma-components'
 import './fontAwesome'
-import { plugin } from 'vue-function-api'
+import VueCompositionApi from '@vue/composition-api'
 import { ThemeProvider } from 'vue-styled-components'
 
 import App from './App'
@@ -18,8 +18,8 @@ gamepadManagerInstance.start()
 
 Vue.config.productionTip = false
 
+Vue.use(VueCompositionApi)
 Vue.use(vueBulmaComponents)
-Vue.use(plugin)
 
 new Vue({
   router,

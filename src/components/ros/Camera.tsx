@@ -1,8 +1,7 @@
 import styled from 'vue-styled-components'
 import { cameraModule, rosModule } from '@/store'
-import { CameraType, Camera } from '@/store/modules/camera.types.ts'
-import { computed, createComponent, PropType } from 'vue-function-api'
-import { VNode } from 'vue'
+import { CameraType } from '@/store/modules/camera.types.ts'
+import { createComponent, computed } from '@vue/composition-api'
 
 const CameraGrid = styled.div`
   display: grid;
@@ -20,7 +19,7 @@ interface Props {
 }
 
 export default createComponent<Props, JSX.Element>({
-  // name: 'Camera',
+  name: 'Camera',
   setup({ type, topic }) {
     const connected = computed(() => rosModule.connected)
     const stream = computed(
