@@ -10,6 +10,7 @@ import { GamepadManager } from 'utils/gamepad/GamepadManager'
 import { Provider } from 'react-redux'
 import { store } from 'store/store'
 import { handleGamepadInput } from 'utils/gamepad/InputHandler'
+import { Audio } from 'components/Audio'
 
 const gamepadManagerInstance = new GamepadManager(handleGamepadInput)
 gamepadManagerInstance.start()
@@ -26,6 +27,7 @@ const App: FC = () => (
           </>
         </ThemeProvider>
       </BrowserRouter>
+      <Audio />
     </Provider>
   </StrictMode>
 )
