@@ -3,6 +3,7 @@ import path from 'path'
 import url from 'url'
 import { isDev } from './isDev'
 import { channels } from '../shared/constants'
+import { initTerminalClient } from './terminalClient'
 
 // WARNING!
 // DO NOT USE electron-devtools-installer
@@ -13,6 +14,8 @@ import { channels } from '../shared/constants'
 let mainWindow: Electron.BrowserWindow | null
 
 app.allowRendererProcessReuse = true
+
+export const getMainWindow = (): Electron.BrowserWindow | null => mainWindow
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -47,6 +50,7 @@ function createWindow() {
 
 app.on('ready', () => {
   createWindow()
+  initTerminalClient()
 })
 
 app.on('window-all-closed', () => {

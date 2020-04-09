@@ -4,6 +4,7 @@ import { ThemeProvider } from 'styled-components'
 import { Provider } from 'react-redux'
 import { ToastContainer } from 'react-toastify'
 // import 'react-toastify/dist/ReactToastify.css'
+import { TerminalOverlay } from 'components/Terminal/TerminalOverlay'
 
 import { defaultTheme } from '~globalStyles/themes/defaultTheme'
 import { Layout } from '~components/Layout'
@@ -26,6 +27,7 @@ const App: FC = () => {
             <>
               <GlobalStyles />
               <Layout />
+              <TerminalOverlay />
             </>
           </ThemeProvider>
         </HashRouter>

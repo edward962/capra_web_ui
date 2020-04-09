@@ -6,6 +6,8 @@ import { TopicOptions } from '~utils/ros/roslib-ts-client/@types'
 import { ITwistMsg, IJoyMsg } from '~utils/ros/rosMsgs.types'
 import { Vector3 } from '~utils/math/types'
 import { controlService } from '~state/control'
+import { terminalSlice } from 'store/modules/terminal/reducer'
+import { store } from 'store/store'
 
 export const cmdVelTopic: TopicOptions = {
   name: '/cmd_vel',
@@ -144,6 +146,13 @@ const defaultActions: Action[] = [
 
       const joy = mapGamepadToJoy(ctx.gamepadState.gamepad)
       rosClient.publish(joyTopic, joy)
+    },
+  },
+  {
+    name: 'toggle_terminal',
+    bindings: [{ type: 'keyboard', code: 'Backquote', onKeyDown: true }],
+    perform: () => {
+      store.dispatch(terminalSlice.actions.toggleTerminal())
     },
   },
 ]

@@ -8,17 +8,19 @@ interface LabeledInputProps {
   value: string
   label: string
   onChange: (event: ChangeEvent<HTMLInputElement>) => void
+  type?: string
 }
 
 export const LabeledInput: FC<LabeledInputProps> = ({
   value,
   onChange,
   label,
+  type,
 }) => {
   return (
     <div>
       <StyledLabel>{label}</StyledLabel>
-      <StyledInput type="text" value={value} onChange={onChange} />
+      <StyledInput type={type || 'text'} value={value} onChange={onChange} />
     </div>
   )
 }

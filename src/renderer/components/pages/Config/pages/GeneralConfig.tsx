@@ -4,6 +4,9 @@ import { Button } from '~components/common/Button'
 import { SectionTitle } from '~components/pages/Config/styles'
 import { useService } from '@xstate/react'
 import { rosService } from '~state/ros'
+import { useDispatch } from 'react-redux'
+import { terminalSlice } from 'store/modules/terminal/reducer'
+import { useSelector } from 'utils/hooks/typedUseSelector'
 
 const ConnectionSection = () => {
   const [state, send] = useService(rosService)
@@ -68,6 +71,38 @@ const UrdfDescriptionSection = () => {
   )
 }
 
+const TerminalConnection = () => {
+  const dispatch = useDispatch()
+
+  const username = useSelector((state) => state.terminal.username)
+  const password = useSelector((state) => state.terminal.password)
+
+  const updateUsername = (e: ChangeEvent<HTMLInputElement>): void => {
+    dispatch(terminalSlice.actions.setUsername(e.target.value))
+  }
+
+  const updatePassword = (e: ChangeEvent<HTMLInputElement>): void => {
+    dispatch(terminalSlice.actions.setPassword(e.target.value))
+  }
+
+  return (
+    <>
+      <SectionTitle>Terminal Connection Info</SectionTitle>
+      <LabeledInput
+        label="Username"
+        value={username}
+        onChange={updateUsername}
+      />
+      <LabeledInput
+        label="Password"
+        value={password}
+        type="password"
+        onChange={updatePassword}
+      />
+    </>
+  )
+}
+
 const DetectedGamepad = () => {
   const gamepads = [...navigator.getGamepads()]
   return (
@@ -81,6 +116,7 @@ const DetectedGamepad = () => {
 export const GeneralConfig: FC = () => (
   <>
     <ConnectionSection />
+    <TerminalConnection />
     <UrdfDescriptionSection />
     <DetectedGamepad />
   </>

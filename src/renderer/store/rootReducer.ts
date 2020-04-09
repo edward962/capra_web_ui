@@ -1,9 +1,11 @@
 import { combineReducers, AnyAction } from 'redux'
-import { feedSlice } from '~store/modules/feed/reducer'
-import { clearStoreCache } from '~store/localStorage'
+import { feedSlice } from 'store/modules/feed/reducer'
+import { clearStoreCache } from 'store/localStorage'
+import { terminalSlice } from 'store/modules/terminal/reducer'
 
 const appReducer = combineReducers({
   feed: feedSlice.reducer,
+  terminal: terminalSlice.reducer,
 })
 
 export const RESET_STATE = { type: 'RESET_STATE' }

@@ -57,8 +57,9 @@
     "ros3d": "^1.0.1",
     "roslib": "^1.1.0",
     "shortid": "^2.2.15",
-    "styled-components": "^5.1.1",
-    "xstate": "^4.10.0"
+    "ssh2": "^0.8.9",
+    "xterm": "^4.4.0",
+    "xterm-addon-fit": "^0.3.0"
   },
   "devDependencies": {
     "@types/chart.js": "^2.9.21",
