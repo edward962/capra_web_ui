@@ -4,9 +4,7 @@ import { Button } from '~components/common/Button'
 import { SectionTitle } from '~components/pages/Config/styles'
 import { useService } from '@xstate/react'
 import { rosService } from '~state/ros'
-import { useDispatch } from 'react-redux'
-import { terminalSlice } from 'store/modules/terminal/reducer'
-import { useSelector } from 'utils/hooks/typedUseSelector'
+import { terminalService } from 'state/terminal'
 
 const ConnectionSection = () => {
   const [state, send] = useService(rosService)
@@ -72,17 +70,17 @@ const UrdfDescriptionSection = () => {
 }
 
 const TerminalConnection = () => {
-  const dispatch = useDispatch()
+  const [state] = useService(terminalService)
 
-  const username = useSelector((state) => state.terminal.username)
-  const password = useSelector((state) => state.terminal.password)
+  const username = state.context.username
+  const password = state.context.password
 
   const updateUsername = (e: ChangeEvent<HTMLInputElement>): void => {
-    dispatch(terminalSlice.actions.setUsername(e.target.value))
+    terminalService.send({ type: 'SET_USERNAME', username: e.target.value })
   }
 
   const updatePassword = (e: ChangeEvent<HTMLInputElement>): void => {
-    dispatch(terminalSlice.actions.setPassword(e.target.value))
+    terminalService.send({ type: 'SET_PASSWORD', password: e.target.value })
   }
 
   return (

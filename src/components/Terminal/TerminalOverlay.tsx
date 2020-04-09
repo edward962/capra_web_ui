@@ -1,14 +1,14 @@
 import React from 'react'
-import { useSelector } from 'utils/hooks/typedUseSelector'
 import { TerminalWrapper } from 'components/Terminal/TerminalWrapper'
 import { StyledOverlay } from 'components/Terminal/Terminal.styles'
+import { useService } from '@xstate/react'
+import { terminalService } from 'state/terminal'
 
 export const TerminalOverlay = () => {
-  const isVisible = useSelector(state => state.terminal.isVisible)
-  console.log('isVisible', isVisible)
+  const [state] = useService(terminalService)
   return (
-    <StyledOverlay hidden={!isVisible}>
-      <TerminalWrapper hidden={!isVisible} />
+    <StyledOverlay hidden={state.matches('hidden')}>
+      <TerminalWrapper hidden={state.matches('hidden')} />
     </StyledOverlay>
   )
 }

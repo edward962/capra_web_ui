@@ -5,9 +5,9 @@ import 'xterm/css/xterm.css'
 import { channels, TERMINNAL_STARTED } from 'electron/shared/constants'
 import { ipcRenderer } from 'electron'
 import { StyledTerm } from 'components/Terminal/Terminal.styles'
-import { useSelector } from 'utils/hooks/typedUseSelector'
 import { useService } from '@xstate/react'
 import { rosService } from 'state/ros'
+import { terminalService } from 'state/terminal'
 
 interface Props {
   hidden: boolean
@@ -22,11 +22,10 @@ term.loadAddon(fitAddon)
 
 export const TerminalWrapper: FC<Props> = ({ hidden }) => {
   const terminalRef = useRef<HTMLDivElement>(null)
-  const [state] = useService(rosService)
+  const [rosState] = useService(rosService)
+  const [terminalState] = useService(terminalService)
   const [isInit, setIsInit] = useState(false)
-  const username = useSelector((state) => state.terminal.username)
-  const password = useSelector((state) => state.terminal.password)
-  const IP = state.context.IP
+  const IP = rosState.context.IP
 
   useEffect(() => {
     if (terminalRef?.current && !isInit && !hidden) {
@@ -36,8 +35,8 @@ export const TerminalWrapper: FC<Props> = ({ hidden }) => {
       ipcRenderer.send(channels.TERMINAL_MAIN, TERMINNAL_STARTED, {
         host: IP,
         port: 22,
-        username: username,
-        password: password,
+        username: terminalState.context.username,
+        password: terminalState.context.password,
       })
 
       ipcRenderer.on(channels.TERMINAL_RENDERER, (_, data) => {
@@ -56,7 +55,14 @@ export const TerminalWrapper: FC<Props> = ({ hidden }) => {
 
       setIsInit(true)
     }
-  }, [IP, hidden, isInit, password, terminalRef, username])
+  }, [
+    IP,
+    hidden,
+    isInit,
+    terminalRef,
+    terminalState.context.password,
+    terminalState.context.username,
+  ])
 
   useEffect(() => {
     if (isInit) term.focus()
